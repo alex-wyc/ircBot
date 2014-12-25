@@ -19,7 +19,7 @@ connected = False;
 stop = False;
 greet = False;
 irc = {
-	"chan" : CHANNEL;
+	"chan" : CHANNEL
 }
 
 def parse(line):
