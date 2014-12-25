@@ -15,8 +15,8 @@ outcoms = outcomes = ["It is certain", "It is decidedly so", "Without a doubt", 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM);
 s.connect((HOST, PORT));
 ircsocket = ssl.wrap_socket(s);
-ircsocket.send("USER " + NICK + " " + NICK + " " + NICK + " :" + NICK + "\n");
 ircsocket.send("NICK " + NICK + "\n");
+ircsocket.send("USER " + NICK + " " + NICK + " " + NICK + " :" + NICK + "\n");
 
 joinChan(CHANNEL, PASSWORD);
 
