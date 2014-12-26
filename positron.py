@@ -43,7 +43,7 @@ def parse(line):
 			string = "KICK %s %s :positron is the ONLY real bot\r\n" %(CHANNEL, username);
 			s.send(string);
 
-		if username == "hiWorld" or username == "[stuyfyre]photon":
+		if username == "hiWorld" or username == "photoXin":
 			string = " MODE %s +o %s\r\n" % (CHANNEL, username);
 			s.send(string);
 
