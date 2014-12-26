@@ -7,8 +7,8 @@ import hashlib;
 
 HOST = "irc.freenode.net";
 PORT = 6667;
-NICK = "positronBotWIP";
-INDENT = "positronbotwip";
+NICK = "positronBot";
+INDENT = "positronbot";
 CHANNEL = "#stuyfyre";
 PASSWORD = "stuycs";
 
