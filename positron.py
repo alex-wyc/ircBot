@@ -103,10 +103,7 @@ while not stop:
 	if line.find("PRIVMSG %s" % CHANNEL) != 1:
 		parse(line);
 
-	if line.find("PING") != -1:
+	if line.find("PING :") != -1:
 		print "I just got pinged"
 
-		s.send("PONG :" + line.split(":")[1]);
-
-	if stop:
-		break;
+		s.send("PONG :Pong\r\n");
