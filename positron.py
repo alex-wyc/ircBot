@@ -2,7 +2,6 @@ import sys;
 import socket;
 import string;
 import random;
-import ssl;
 import hashlib;
 
 HOST = "irc.freenode.net";
@@ -26,10 +25,6 @@ def joinChan(chan, pwd):
 	s.send("JOIN " + chan + " " + pwd + "\r\n");
 
 joinChan(CHANNEL, PASSWORD);
-
-connected = False;
-stop = False;
-greet = False;
 
 slots = 6;
 
@@ -106,7 +101,7 @@ def parse(line):
 
 
 
-while not stop:
+while True:
 	#print connected;
 	line = s.recv(1024);
 	print line;
