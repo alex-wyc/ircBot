@@ -35,21 +35,29 @@ slots = 6;
 
 def parse(line):
 
-	if line.find("JOIN #stuyfyre") != -1:
+	if line.find("JOIN") != -1:
 
 		username = line.split(":")[1].split("!")[0];
 
-		print username;
-
 		for banel in banlist:
-			if username.lower().find(banel) != -1:
-				print "Kicking time"
-				string = "KICK %s %s :You were BANNED!!!\r\n" %(CHANNEL, username);
+			if username.lower().replace(" ", "").find(banel) != -1:
+				string = "KICK %s %s :The BAN HAMMER has struck\r\n" % (CHANNEL, username);
 				s.send(string);
+				break;
 
 		if username == "hiWorld" or username == "photoXin":
 			string = " MODE %s +o %s\r\n" % (CHANNEL, username);
 			s.send(string);
+
+	if line.find("NICK") != -1:
+
+		newUsername = line.split(":")[-1];
+
+		for banel in banlist:
+			if newUsername.lower().replace(" ", "").find(banel) != -1:
+				string = "KICK %s %s :The BAN HAMMER has struck\r\n" % (CHANNEL, newUsername);
+				s.send(string);
+				break;
 
 	if len(line.split(":")) == 3:
 
