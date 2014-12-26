@@ -33,10 +33,18 @@ slots = 6;
 
 def parse(line):
 
-	if line.find("JOIN :#stuyfyre") != -1:
+	if line.find("JOIN #stuyfyre") != -1:
+
 		username = line.split(":")[1].split("!")[0];
+
+		print username;
+
 		if username.lower().find("bot") != -1:
 			string = "KICK %s %s :positron is the ONLY real bot\r\n" %(CHANNEL, username);
+			s.send(string);
+
+		if username == "hiWorld" or username == "[stuyfyre]photon":
+			string = " MODE %s +o %s\r\n" % (CHANNEL, username);
 			s.send(string);
 
 	if len(line.split(":")) == 3:
@@ -95,7 +103,9 @@ while not stop:
 	if line.find("PRIVMSG %s" % CHANNEL) != 1:
 		parse(line);
 
-	elif line.find("PING") != -1:
+	if line.find("PING") != -1:
+		print "I just got pinged"
+
 		s.send("PONG :" + line.split(":")[1]);
 
 	if stop:
