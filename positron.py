@@ -10,7 +10,7 @@ NICK = "positronBot";
 INDENT = "positronbot";
 CHANNEL = "#stuyfyre";
 PASSWORD = "stuycs";
-TOPIC = "We hold these shells to be self evident, that NOT all C derivatives are created equal, and endowed within them are certain inalienable instructions from their compilers."
+TOPIC = "We hold these truths to be self evident, that NOT all C derivatives are created equal, and endowed within them are certain inalienable instructions by their compilers."
 
 outcomes = ["It is certain", "It is decidedly so", "Without a doubt", "Yes definitely", "You may rely on it", "As I see it, yes", "Most likely", "Outlook good", "Yes", "Signs point to yes", "Reply hazy try again", "Ask again later", "Better not tell you now", "Cannot predict now", "Concentrate and ask again ", "Don't count on it", "My reply is no", "My sources say no", "Outlook not so good", "Very doubtful", "no.", "START", "A", "B", "UP", "DOWN", "LEFT", "RIGHT", "SELECT"];
 
@@ -90,14 +90,14 @@ def parse(line):
 
 			if command.find("md5") != -1:
 				try:
-					stuff = message[5:];
+					stuff = message[5:].replace("\r\n", "");
 					result = hashlib.md5();
 					result.update(stuff);
 
 					if len(stuff) < 1:
 						raise Exception();
 
-					s.send("PRIVMSG %s :md5 of %s is %s\r\n" % (CHANNEL, stuff, result.hexdigest()));
+					s.send("PRIVMSG %s :md5 of \"%s\" is %s\r\n" % (CHANNEL, stuff, result.hexdigest()));
 
 				except Exception:
 					s.send("PRIVMSG %s :Usage: `md5 [stuff]\r\n" % CHANNEL);
