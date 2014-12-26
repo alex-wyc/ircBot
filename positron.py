@@ -7,8 +7,8 @@ import hashlib;
 
 HOST = "irc.freenode.net";
 PORT = 6667;
-NICK = "positronBot";
-INDENT = "positronbot";
+NICK = "positronBotWIP";
+INDENT = "positronbotwip";
 CHANNEL = "#stuyfyre";
 PASSWORD = "stuycs";
 
@@ -82,7 +82,8 @@ def parse(line):
 					s.send("PRIVMSG %s :Usage: `md5 [stuff]\r\n" % CHANNEL);
 
 			if command.find("hf") != -1:
-				s.send("PRIVMSG %s :%s, %s" % (CHANNEL, username, random.choice(outcomes)));
+				print "Helix Fossil Summoned"
+				s.send("PRIVMSG %s :%s, %s\r\n" % (CHANNEL, username, random.choice(outcomes)));
 
 
 
@@ -96,12 +97,6 @@ while not stop:
 
 	elif line.find("PING") != -1:
 		s.send("PONG :" + line.split(":")[1]);
-		if not connected:
-			joinChan(CHANNEL, PASSWORD);
-
-			if not greet:
-				greet = True;
-				s.send("PRIVMSG %(chan)s :Bonjour tous les mondes!\n" % irc);
 
 	if stop:
 		break;
