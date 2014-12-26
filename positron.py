@@ -26,6 +26,8 @@ def joinChan(chan, pwd):
 
 joinChan(CHANNEL, PASSWORD);
 
+s.send("MODE %s +kt\r\n" % (CHANNEL));
+
 slots = 6;
 
 def parse(line):
@@ -33,12 +35,13 @@ def parse(line):
 	if line.find("JOIN") != -1:
 
 		username = line.split(":")[1].split("!")[0];
-
-		for banel in banlist:
-			if username.lower().replace(" ", "").find(banel) != -1:
-				string = "KICK %s %s :The BAN HAMMER has struck\r\n" % (CHANNEL, username);
-				s.send(string);
-				break;
+		
+		if username != NICK:
+			for banel in banlist:
+				if username.lower().replace(" ", "").find(banel) != -1:
+					string = "KICK %s %s :The BAN HAMMER has struck\r\n" % (CHANNEL, username);
+					s.send(string);
+					break;
 
 		if username == "hiWorld" or username == "photoXin":
 			string = " MODE %s +o %s\r\n" % (CHANNEL, username);
@@ -84,7 +87,7 @@ def parse(line):
 
 			if command.find("md5") != -1:
 				try:
-					stuff = "".join(actual[1:]).strip("\r\n");
+					stuff = message[5:];
 					result = hashlib.md5();
 					result.update(stuff);
 
