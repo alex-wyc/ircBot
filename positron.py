@@ -7,12 +7,14 @@ import hashlib;
 
 HOST = "irc.freenode.net";
 PORT = 6667;
-NICK = "positronBot";
-INDENT = "positronbot";
+NICK = "positronBotWIP";
+INDENT = "positronbotwip";
 CHANNEL = "#stuyfyre";
 PASSWORD = "stuycs";
 
 outcomes = ["It is certain", "It is decidedly so", "Without a doubt", "Yes definitely", "You may rely on it", "As I see it, yes", "Most likely", "Outlook good", "Yes", "Signs point to yes", "Reply hazy try again", "Ask again later", "Better not tell you now", "Cannot predict now", "Concentrate and ask again ", "Don't count on it", "My reply is no", "My sources say no", "Outlook not so good", "Very doubtful", "no.", "START", "A", "B", "UP", "DOWN", "LEFT", "RIGHT", "SELECT"];
+
+banlist = ["charlesma", "bot"];
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM);
 s.connect((HOST, PORT));
@@ -39,9 +41,11 @@ def parse(line):
 
 		print username;
 
-		if username.lower().find("bot") != -1:
-			string = "KICK %s %s :positron is the ONLY real bot\r\n" %(CHANNEL, username);
-			s.send(string);
+		for banel in banlist:
+			if username.lower().find(banel) != -1:
+				print "Kicking time"
+				string = "KICK %s %s :You were BANNED!!!\r\n" %(CHANNEL, username);
+				s.send(string);
 
 		if username == "hiWorld" or username == "photoXin":
 			string = " MODE %s +o %s\r\n" % (CHANNEL, username);
@@ -90,7 +94,6 @@ def parse(line):
 					s.send("PRIVMSG %s :Usage: `md5 [stuff]\r\n" % CHANNEL);
 
 			if command.find("hf") != -1:
-				print "Helix Fossil Summoned"
 				s.send("PRIVMSG %s :%s, %s\r\n" % (CHANNEL, username, random.choice(outcomes)));
 
 
@@ -104,6 +107,5 @@ while not stop:
 		parse(line);
 
 	if line.find("PING :") != -1:
-		print "I just got pinged"
 
 		s.send("PONG :Pong\r\n");
