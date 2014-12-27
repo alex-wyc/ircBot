@@ -11,7 +11,7 @@ NICK = "positronBot";
 INDENT = "positronbot";
 CHANNEL = "#stuyfyre";
 PASSWORD = "stuycs";
-TOPIC = "We hold these truths to be self evident, that NOT all C derivatives are created equal, and endowed within them are certain inalienable instructions by their compilers.";
+TOPIC = "We hold these shells to be self evident, that not all C derivatives are created equal, and that they are endowed by their compilers with certain inalienable instructions.";
 
 outcomes = ["It is certain", "It is decidedly so", "Without a doubt", "Yes definitely", "You may rely on it", "As I see it, yes", "Most likely", "Outlook good", "Yes", "Signs point to yes", "Reply hazy try again", "Ask again later", "Better not tell you now", "Cannot predict now", "Concentrate and ask again ", "Don't count on it", "My reply is no", "My sources say no", "Outlook not so good", "Very doubtful", "no.", "START", "A", "B", "UP", "DOWN", "LEFT", "RIGHT", "SELECT"];
 
@@ -29,7 +29,7 @@ def joinChan(chan, pwd):
 joinChan(CHANNEL, PASSWORD);
 
 s.send("MODE %s +k %s\r\n" % (CHANNEL, PASSWORD));
-s.send("TOPIC %s %s\r\n" % (CHANNEL, TOPIC));
+s.send("TOPIC %s :%s\r\n" % (CHANNEL, TOPIC));
 s.send("MODE %s +t\r\n" % (CHANNEL));
 
 slots = 6;
@@ -118,7 +118,7 @@ def parse(line):
 			if command.find("wiki") != -1:
 				url = "http://en.wikipedia.org/wiki/" + message[6:].replace(" ", "_");
 
-				try:
+				#try:
 
 while True:
 	#print connected;
