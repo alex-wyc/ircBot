@@ -110,10 +110,10 @@ def parse(line):
 				try:
 					top = int(message[6:].replace("\r\n", ""));
 					result = random.randrange(0,top);
-					s.send("PRIVMSG %s :%s, you rolled %d" % (CHANNEL, username, result));
+					s.send("PRIVMSG %s :%s, you rolled %d\r\n" % (CHANNEL, username, result));
 
 				except Exception:
-					s.send("PRIVMSG %s :F**k you %s, I hope you die a gruesome death" % (CHANNEL, username));
+					s.send("PRIVMSG %s :F**k you %s, I hope you die a gruesome death\r\n" % (CHANNEL, username));
 
 			if command.find("wiki") != -1:
 				url = "http://en.wikipedia.org/wiki/" + message[6:].replace(" ", "_");
