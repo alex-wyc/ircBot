@@ -66,7 +66,7 @@ def parse(line):
 		username = line.split(":")[1].split("!")[0];
 		message = line.split(":")[2];
 
-		if message.split(" ")[0].strip().strip(",").strip(":").lower() in ["hi", "hello", "hei"]: # Greeting Function
+		if message.split(" ")[0].strip().strip(",").strip(":").lower() in ["hi", "hello", "hei", "hey"]: # Greeting Function
 
 			s.send("PRIVMSG %s :Hello, %s\r\n" % (CHANNEL, username));
 
@@ -114,6 +114,10 @@ def parse(line):
 
 				except Exception:
 					s.send("PRIVMSG %s :F**k you %s, I hope you die a gruesome death\r\n" % (CHANNEL, username));
+
+			if command.find("rekt") != -1:
+				recked = message[5:].replace("\r\n", "");
+				s.send("PRIVMSG %s :%s, you just go rekted by %s\r\n" % (CHANNEL, recked, username));
 
 			if command.find("wiki") != -1:
 				url = "http://en.wikipedia.org/wiki/" + message[6:].replace(" ", "_");
