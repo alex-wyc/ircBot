@@ -113,7 +113,7 @@ def parse(line):
 					s.send("PRIVMSG %s :%s, you rolled %d\r\n" % (CHANNEL, username, result));
 
 				except Exception:
-					s.send("PRIVMSG %s :F**k you %s, I hope you die a gruesome death\r\n" % (CHANNEL, username));
+					s.send("PRIVMSG %s :%s: USAGE: `roll [NUMBER]\r\n" % (CHANNEL, username));
 
 			if command.find("rekt") != -1:
 				recked = message[5:].replace("\r\n", "");
