@@ -117,7 +117,7 @@ def parse(line):
 
 			if command.find("rekt") != -1:
 				recked = message[5:].replace("\r\n", "");
-				s.send("PRIVMSG %s :%s, you just go rekted by %s\r\n" % (CHANNEL, recked, username));
+				s.send("PRIVMSG %s :%s, you just got rekted by %s\r\n" % (CHANNEL, recked, username));
 
 			if command.find("wiki") != -1:
 				url = "http://en.wikipedia.org/wiki/" + message[6:].replace(" ", "_");
