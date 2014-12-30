@@ -47,7 +47,7 @@ def parse(line):
 					s.send(string);
 					break;
 
-		if username == "hiWorld" or username == "photoXin":
+		if username == "hiWorld" or username == "photoXin" or username == "polarity":
 			string = " MODE %s +o %s\r\n" % (CHANNEL, username);
 			s.send(string);
 
