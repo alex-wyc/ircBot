@@ -65,6 +65,33 @@ def reshuffle():
 	deck = drawedCard;
 	drawedCard = [];
 
+# Wikipedia!!
+
+wikipeaURL = "http://en.wikipedia.org/wiki/"; # Add the actual site name later
+
+def destroyAllBrackets(html):
+	while "<" in html and ">" in html:
+		html = html[:html.find("<")] + html[html.find(">") + 1:];
+	return html;
+
+def getFirstP(keyword):
+	keyword = keyword.replace(" ", "_");
+	realURL = wikipeaURL + keyword;
+
+	try:
+		page = urllib2.urlopen(realURL);
+	except:
+		return "Wikipedia article not found!";
+
+	html = page.read().split('<div id="mw-content-text"')[1]
+	html = html.split('div id="toc" class="toc"')[0];
+	html = html.split("<p>")[1];
+	html = destroyAllBrackets(html);
+	return html;
+
+# Greetings
+greetings = ["hi", "hello", "hei", "hey"];
+
 # Actual Socket Stuff
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM);
 s.connect((HOST, PORT));
@@ -115,7 +142,7 @@ def parse(line):
 		username = line.split(":")[1].split("!")[0];
 		message = line.split(":")[2];
 
-		if message.split(" ")[0].strip().strip(",").strip(":").lower() in ["hi", "hello", "hei", "hey"]: # Greeting Function
+		if message.split(" ")[0].strip().strip(",").strip(":").lower() in greetings: # Greeting Function
 
 			s.send("PRIVMSG %s :Hello, %s\r\n" % (CHANNEL, username));
 
@@ -193,9 +220,16 @@ def parse(line):
 					reshuffle();
 
 			if command.find("wiki") != -1:
-				url = "http://en.wikipedia.org/wiki/" + message[6:].replace(" ", "_");
+				keyword = message[6:];
+				result = getFirstP(keyword);
 
-				#try:
+				if len(result) > 426:
+					result = result[:420]; # Maximum char limit for each PRIVMSG
+					result = ".".join(result.split(".")[:-1]);
+					result += "..."
+
+				s.send("PRIVMSG %s :%s, the wikipedia entry for %s is:\r\n" % (CHANNEL, username, keyword));
+				s.send("PRIVMSG %s :%s\r\n" % (CHANNEL, result));
 
 while True:
 	#print connected;
