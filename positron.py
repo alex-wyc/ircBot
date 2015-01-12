@@ -6,8 +6,8 @@ import urllib2;
 
 HOST = "irc.freenode.net";
 PORT = 6667;
-NICK = "positronBot";
-INDENT = "positronbot";
+NICK = "positronWIP";
+INDENT = "positronwip";
 CHANNEL = "#stuyfyre";
 PASSWORD = "stuycs";
 TOPIC = "We hold these shells to be self evident, that not all C derivatives are created equal, and that they are endowed by their compilers with certain inalienable instructions.";
@@ -209,6 +209,7 @@ def parse(line):
 
 						if blackJackStats[username][0] < 0:
 							s.send("KICK %s %s :You're out of $$!\r\n" % (CHANNEL, username));
+							del blackJackStats[username]
 				else:
 					s.send("PRIVMSG %s :Welcome to blackjack %s, you have $30.\r\n" % (CHANNEL, username));
 					blackJackStats[username] = [30, parseNumFromCard(drawnCard)];
