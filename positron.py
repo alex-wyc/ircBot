@@ -3,14 +3,26 @@ import string;
 import random;
 import hashlib;
 import urllib2;
+import time;
+import os;
 
 HOST = "irc.freenode.net";
 PORT = 6667;
-NICK = "positronWIP";
+NICK = "positronwip";
 INDENT = "positronwip";
 CHANNEL = "#stuyfyre";
 PASSWORD = "stuycs";
 TOPIC = "We hold these shells to be self evident, that not all C derivatives are created equal, and that they are endowed by their compilers with certain inalienable instructions.";
+
+def getTime():
+	return time.strftime("%Y-%b-%d-%H:%M:%S-GMT", time.gmtime());
+
+#Recording stuff
+
+RECORDING = False;
+RECTS = getTime;
+RECTE = getTime;
+RECORD = "";
 
 
 # Helix Fossil
@@ -110,6 +122,7 @@ s.send("MODE %s +t\r\n" % (CHANNEL));
 slots = 6;
 
 def parse(line):
+	global RECORDING, RECORD, RECTS, RECTE;
 
 	if line.find("JOIN") != -1:
 
@@ -140,6 +153,9 @@ def parse(line):
 
 		username = line.split(":")[1].split("!")[0];
 		message = line.split(":")[2];
+
+		if RECORDING:
+			RECORD += "<%s> : %s\n" % (username, message.strip("\r").strip("\n"));
 
 		if message.split(" ")[0].strip().strip(",").strip(":").lower() in greetings: # Greeting Function
 
@@ -230,6 +246,28 @@ def parse(line):
 
 				s.send("PRIVMSG %s :%s, the wikipedia entry for %s is:\r\n" % (CHANNEL, username, keyword));
 				s.send("PRIVMSG %s :%s\r\n" % (CHANNEL, result));
+
+			if command.find("record") != -1:
+				if RECORDING:
+					s.send("PRIVMSG %s :You have already started recording at %s\r\n" % (CHANNEL, RECTS));
+				else:
+					s.send("PRIVMSG %s :Starting recording now...\r\n" % CHANNEL);
+					RECORDING = True;
+					RECTS = getTime();
+
+			if command.find("endRecord") != -1:
+				print "TIME TO STOP\n"
+				if not RECORDING:
+					s.send("PRIVMSG %s :You are not recording anything...\r\n");
+				else:
+					RECORDING = False;
+					RECTE = getTime();
+					RecordName = "./positronRecord-%s" % RECTE;
+					s.send("PRIVMSG %s :Writing record...\r\n" % CHANNEL);
+					f = open(RecordName, "w+");
+					f.write(RECORD);
+					f.close();
+					s.send("PRIVMSG %s :Done, record created\r\n" % CHANNEL);
 
 while True:
 	#print connected;
