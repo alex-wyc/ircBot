@@ -8,8 +8,8 @@ import os;
 
 HOST = "irc.freenode.net";
 PORT = 6667;
-NICK = "positronwip";
-INDENT = "positronwip";
+NICK = "positronBot";
+INDENT = "positronbot";
 CHANNEL = "#stuyfyre";
 PASSWORD = "stuycs";
 TOPIC = "We hold these shells to be self evident, that not all C derivatives are created equal, and that they are endowed by their compilers with certain inalienable instructions.";
@@ -30,6 +30,12 @@ outcomes = ["It is certain", "It is decidedly so", "Without a doubt", "Yes defin
 
 # Ban-list
 banlist = ["charlesma", "bot"];
+
+# admin-list
+admin = ["hiWorld", "photoXin", "polarity"];
+
+# command-list
+commands = ["help","roulette", "md5", "hf", "roll", "rekt", "blackjack", "wiki"];
 
 # Blackjack
 
@@ -166,6 +172,9 @@ def parse(line):
 			actual = message[1:].split(" ");
 			command = actual[0];
 
+			if command.find("help") != -1:
+				s.send("PRIVMSG %s :command list: " % (CHANNEL) + str(commands)[1:-1] + "\r\n");
+
 			if command.find("roulette") != -1:
 
 				global slots
@@ -251,23 +260,29 @@ def parse(line):
 				if RECORDING:
 					s.send("PRIVMSG %s :You have already started recording at %s\r\n" % (CHANNEL, RECTS));
 				else:
-					s.send("PRIVMSG %s :Starting recording now...\r\n" % CHANNEL);
-					RECORDING = True;
-					RECTS = getTime();
+					if username in admin:
+						s.send("PRIVMSG %s :Starting recording now...\r\n" % CHANNEL);
+						RECORDING = True;
+						RECTS = getTime();
+					else:
+						s.send("PRIVMSG %s :%s You need to be an admin...\r\n" % (CHANNEL, username));
 
 			if command.find("endRecord") != -1:
 				print "TIME TO STOP\n"
 				if not RECORDING:
 					s.send("PRIVMSG %s :You are not recording anything...\r\n");
 				else:
-					RECORDING = False;
-					RECTE = getTime();
-					RecordName = "./positronRecord-%s" % RECTE;
-					s.send("PRIVMSG %s :Writing record...\r\n" % CHANNEL);
-					f = open(RecordName, "w+");
-					f.write(RECORD);
-					f.close();
-					s.send("PRIVMSG %s :Done, record created\r\n" % CHANNEL);
+					if username in admin:
+						RECORDING = False;
+						RECTE = getTime();
+						RecordName = "./positronRecord-%s" % RECTE;
+						s.send("PRIVMSG %s :Writing record...\r\n" % CHANNEL);
+						f = open(RecordName, "w+");
+						f.write(RECORD);
+						f.close();
+						s.send("PRIVMSG %s :Done, record created\r\n" % CHANNEL);
+					else:
+						s.send("PRIVMSG %s :%s You need to be an admin...\r\n" % (CHANNEL, username));
 
 while True:
 	#print connected;
