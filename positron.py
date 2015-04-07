@@ -11,7 +11,6 @@ PORT = 6667
 NICK = "positronBot"
 INDENT = "positronbot"
 CHANNEL = "#stuyctf"
-PASSWORD = "stuycs"
 TOPIC = ""#"We hold these shells to be self evident, that not all C derivatives are created equal, and that they are endowed by their compilers with certain inalienable instructions."
 
 def getTime():
