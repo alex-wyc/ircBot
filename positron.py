@@ -6,12 +6,12 @@ import urllib2
 import time
 import os
 
-HOST = "irc.mibbit.com"
+HOST = "irc.freenode.com"
 PORT = 6667
 NICK = "positronBot"
 INDENT = "positronbot"
-CHANNEL = "#stuyctf"
-TOPIC = ""#"We hold these shells to be self evident, that not all C derivatives are created equal, and that they are endowed by their compilers with certain inalienable instructions."
+CHANNEL = "#hiWorld"
+TOPIC = "We hold these shells to be self evident, that not all C derivatives are created equal, and that they are endowed by their compilers with certain inalienable instructions."
 
 def getTime():
 	return time.strftime("%Y-%b-%d-%H:%M:%S-GMT", time.gmtime())
@@ -121,17 +121,7 @@ print "recv 2", pingPong
 pingPong = pingPong[5:]
 s.send('PONG %s\r\n' % pingPong)
 
-#def joinChan(chan, pwd):
-#	s.send("JOIN " + chan + " " + pwd + "\r\n")
-
-#joinChan(CHANNEL, PASSWORD)
-
 s.send("JOIN %s\r\n" % (CHANNEL,))
-
-#s.send("MODE %s +k %s\r\n" % (CHANNEL, PASSWORD))
-#s.send("TOPIC %s :%s\r\n" % (CHANNEL, TOPIC))
-#s.send("MODE %s +t\r\n" % (CHANNEL))
-s.send("PRIVMSG NickServ :identify gadet best_ctf_123\r\n")
 
 slots = 6
 
