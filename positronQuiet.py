@@ -6,11 +6,11 @@ import urllib2
 import time
 import os
 
-HOST = "irc.mibbit.com"
+HOST = "irc.freenode.com"
 PORT = 6667
 NICK = "positronBot"
 INDENT = "positronbot"
-CHANNEL = "#stuyctf"
+CHANNEL = "#in/s/ane"
 TOPIC = ""#"We hold these shells to be self evident, that not all C derivatives are created equal, and that they are endowed by their compilers with certain inalienable instructions."
 
 def getTime():
@@ -31,7 +31,7 @@ outcomes = ["It is certain", "It is decidedly so", "Without a doubt", "Yes defin
 banlist = ["charlesma", "bot"]
 
 # admin-list
-#admin = ["hiWorld", "photoXin", "polarity"]
+admin = ["hiWorld", "photoXin", "polarity"]
 
 # command-list
 commands = ["help","roulette", "md5", "hf", "roll", "rekt", "blackjack", "wiki"]
